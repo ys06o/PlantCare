@@ -1,5 +1,6 @@
 package com.example.plantcare.entity;
 
+import com.example.plantcare.dto.SensorDataDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +10,9 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "SensorData")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class SensorDataEntitiy {
+@Entity @Table(name = "SensorData")
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
+public class SensorDataEntitiy extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sensor_data_id")
@@ -35,7 +32,18 @@ public class SensorDataEntitiy {
     private BigDecimal soilMoisture;
 
     @Column(name = "measured_time", nullable = false)
-    private LocalDateTime measuredTime = LocalDateTime.now();
+    private LocalDateTime measuredTime;
 
-
+    public SensorDataDto toDto() {
+        return SensorDataDto.builder()
+                .sensorDataId(sensorDataId)
+                .plantId(plant.getPlantId())
+                .temperature(temperature)
+                .humidity(humidity)
+                .soilMoisture(soilMoisture)
+                .measuredTime(measuredTime != null ? measuredTime.toString() : null)
+                .createDate(getCreateDate() != null ? getCreateDate().toString() : null)
+                .updateDate(getUpdateDate() != null ? getUpdateDate().toString() : null)
+                .build();
+    }
 }

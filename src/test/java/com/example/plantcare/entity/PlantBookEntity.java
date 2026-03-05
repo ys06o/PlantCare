@@ -1,5 +1,6 @@
 package com.example.plantcare.entity;
 
+import com.example.plantcare.dto.PlantBookDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlantBookEntitiy {
+public class PlantBookEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "species_code")
@@ -26,4 +27,15 @@ public class PlantBookEntitiy {
 
     @Column(name = "characteristics", length = 255)
     private String characteristics;
+
+    public PlantBookDto toDto() {
+        return PlantBookDto.builder()
+                .speciesCode(species_code)
+                .plantName(plantName)
+                .careMethod(careMethod)
+                .characteristics(characteristics)
+                .createDate(getCreateDate() != null ? getCreateDate().toString() : null)
+                .updateDate(getUpdateDate() != null ? getUpdateDate().toString() : null)
+                .build();
+    }
 }

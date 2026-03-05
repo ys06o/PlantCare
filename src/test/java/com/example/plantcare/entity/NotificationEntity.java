@@ -1,5 +1,6 @@
 package com.example.plantcare.entity;
 
+import com.example.plantcare.dto.NotificationDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,4 +29,16 @@ public class NotificationEntity extends BaseTime{
 
     @Column(name = "is_sent", nullable = false)
     private Boolean isSent = false;
+
+    public NotificationDto toDto() {
+        return NotificationDto.builder()
+                .notificationId(notificationId)
+                .plantId(plant.getPlantId())
+                .type(type)
+                .message(message)
+                .isSent(isSent)
+                .createDate(getCreateDate() != null ? getCreateDate().toString() : null)
+                .updateDate(getUpdateDate() != null ? getUpdateDate().toString() : null)
+                .build();
+    }
 }

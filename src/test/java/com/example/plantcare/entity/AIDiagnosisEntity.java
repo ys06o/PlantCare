@@ -1,18 +1,17 @@
 package com.example.plantcare.entity;
 
+import com.example.plantcare.dto.AIDiagnosisDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "AIDiagnosis")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class AIDiagnosisEntity {
+@Entity @Table(name = "AIDiagnosis") @Data
+@AllArgsConstructor @NoArgsConstructor@Builder
+public class AIDiagnosisEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "diagnosis_id")
@@ -32,5 +31,18 @@ public class AIDiagnosisEntity {
     private String imageUrl;
 
     @Column(name = "diagnosis_date", nullable = false)
-    private LocalDateTime diagnosisDate = LocalDateTime.now();
+    private LocalDateTime diagnosisDate;
+
+    public AIDiagnosisDto toDto() {
+        return AIDiagnosisDto.builder()
+                .diagnosisId(diagnosisId)
+                .plantId(plant.getPlantId())
+                .details(details)
+                .result(result)
+                .imageUrl(imageUrl)
+                .diagnosisDate(diagnosisDate != null ? diagnosisDate.toString() : null)
+                .createDate(getCreateDate() != null ? getCreateDate().toString() : null)
+                .updateDate(getUpdateDate() != null ? getUpdateDate().toString() : null)
+                .build();
+    }
 }

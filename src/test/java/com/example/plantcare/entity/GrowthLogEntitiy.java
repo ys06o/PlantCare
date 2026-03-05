@@ -1,15 +1,17 @@
 package com.example.plantcare.entity;
 
+import com.example.plantcare.dto.GrowthLogDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data@AllArgsConstructor@NoArgsConstructor
-@Entity@Table(name = "GrowthLog")
-public class GrowthLogEntitiy {
+@Entity@Table(name = "GrowthLog")@Builder
+public class GrowthLogEntitiy extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")
@@ -34,4 +36,18 @@ public class GrowthLogEntitiy {
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
+
+    public GrowthLogDto toDto() {
+        return GrowthLogDto.builder()
+                .logId(logId)
+                .plantId(plant.getPlantId())
+                .diagnosisId(aiDiagnosis != null ? aiDiagnosis.getDiagnosisId() : null)
+                .title(title)
+                .photoUrl(photoUrl)
+                .logDate(logDate != null ? logDate.toString() : null)
+                .content(content)
+                .createDate(getCreateDate() != null ? getCreateDate().toString() : null)
+                .updateDate(getUpdateDate() != null ? getUpdateDate().toString() : null)
+                .build();
+    }
 }
