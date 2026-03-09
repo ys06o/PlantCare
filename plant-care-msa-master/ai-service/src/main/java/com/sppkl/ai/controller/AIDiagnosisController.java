@@ -1,7 +1,7 @@
-package com.example.plantcare.controller;
+package com.sppkl.ai.controller;
 
-import com.example.plantcare.dto.AIDiagnosisDto;
-import com.example.plantcare.service.AIDiagnosisService;
+import com.sppkl.ai.dto.AIDiagnosisDto;
+import com.sppkl.ai.service.AIDiagnosisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,8 @@
-package com.example.plantcare.service;
+package com.sppkl.ai.service;
 
-import com.example.plantcare.dto.AIDiagnosisDto;
-import com.example.plantcare.entity.AIDiagnosisEntity;
-import com.example.plantcare.repository.AIDiagnosisRepository;
+import com.sppkl.ai.dto.AIDiagnosisDto;
+import com.sppkl.ai.entity.AIDiagnosisEntity;
+import com.sppkl.ai.repository.AIDiagnosisRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
