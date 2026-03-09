@@ -3,6 +3,7 @@ package com.example.plantcare.service;
 import com.example.plantcare.dto.AIDiagnosisDto;
 import com.example.plantcare.entity.AIDiagnosisEntity;
 import com.example.plantcare.repository.AIDiagnosisRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class AIDiagnosisService {
     }
 
     // 1. 특정 사용자의 진단목록( 전체 )
-    public List<AIDiagnosisDto> UserFindAll(int userId){
+    public List<AIDiagnosisDto> User_AIList(int userId){
         // 각 유저의 자신의 진단기록을 리스트에 넣은 코드
         List<AIDiagnosisEntity> AIEntityList=aiDiagnosisRepository.findByPlant_User_UserId(userId);
         List<AIDiagnosisDto> AIDtoList=new ArrayList<>();
@@ -36,4 +37,14 @@ public class AIDiagnosisService {
     }
 
     // 1번을 이용한 진단목록 상세 조회
+    public AIDiagnosisDto User_Details(Long diagnosisId){
+        AIDiagnosisEntity entity = aiDiagnosisRepository.findById(diagnosisId)
+                .orElseThrow(() -> new EntityNotFoundException("Diagnosis not found: " + diagnosisId));
+        // .orElseThrow(() ->
+        // new EntityNotFoundException("Diagnosis not found: " + diagnosisId));
+        // 진단아이디가 없을 시 오류 처리
+        return entity.toDto();
+    }
+
+
 }

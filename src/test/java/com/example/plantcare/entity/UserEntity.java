@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserEntity extends BaseTime {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
 
